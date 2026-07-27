@@ -7,14 +7,6 @@ const { Pool } = pg;
 
 type DrizzleDb = ReturnType<typeof drizzle<typeof schema>>;
 
-/**
- * DatabaseService — Singleton quản lý vòng đời kết nối PostgreSQL.
- *
- * Trách nhiệm:
- *  - Khởi tạo pg.Pool với cấu hình từ EnvConfig
- *  - Cung cấp instance Drizzle ORM
- *  - Xử lý lỗi pool và đóng kết nối khi cần
- */
 export class DatabaseService {
   private static instance: DatabaseService;
 

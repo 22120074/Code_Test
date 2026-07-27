@@ -3,12 +3,6 @@ import { DatabaseService } from "../database.service.js";
 import { SeederService } from "./seeder.service.js";
 import type { SeedResult } from "./seeder.service.js";
 
-/**
- * SeedRunner — Chạy seed dữ liệu CSV vào DB.
- *
- * Lưu ý: Bảng phải tồn tại trước khi seed.
- * Chạy migration trước nếu cần: `npm run migrate`
- */
 class SeedRunner {
   private readonly dbService: DatabaseService;
   private readonly seederService: SeederService;
@@ -44,10 +38,11 @@ class SeedRunner {
     console.log("\n📊 Kết quả seed:");
     console.log(`   Tổng batch  : ${result.totalBatches.toLocaleString()}`);
     console.log(`   Inserted    : ${result.totalInserted.toLocaleString()}`);
-    console.log(`   Skipped     : ${result.totalSkipped.toLocaleString()} (trùng SBD)`);
+    console.log(
+      `   Skipped     : ${result.totalSkipped.toLocaleString()} (trùng SBD)`,
+    );
     console.log(`   Thời gian   : ${elapsed}s`);
   }
 }
 
-// ─── Entrypoint ──────────────────────────────────────────────────────────────
 new SeedRunner().run();

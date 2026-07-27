@@ -1,11 +1,5 @@
 import "dotenv/config";
 
-/**
- * EnvConfig — Singleton đọc và validate toàn bộ biến môi trường.
- *
- * Mọi nơi trong ứng dụng import `envConfig` thay vì đọc
- * `process.env` trực tiếp để đảm bảo type-safety và fail-fast.
- */
 export class EnvConfig {
   private static instance: EnvConfig;
 
@@ -31,7 +25,9 @@ export class EnvConfig {
   private require(key: string): string {
     const value = process.env[key];
     if (!value) {
-      throw new Error(`[EnvConfig] Biến môi trường bắt buộc "${key}" chưa được khai báo.`);
+      throw new Error(
+        `[EnvConfig] Biến môi trường bắt buộc "${key}" chưa được khai báo.`,
+      );
     }
     return value;
   }
