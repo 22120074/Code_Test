@@ -1,0 +1,15 @@
+# Backend dependencies và build
+backend/node_modules/
+backend/dist/
+
+# Biến môi trường
+backend/.env
+
+# Lỗi log
+*.log
+
+# Hệ điều hành
+.DS_Store
+
+# Bỏ qua file dữ liệu lớn nếu cần (tuỳ chọn)
+# backend/src/database/seeds/data/*.csv

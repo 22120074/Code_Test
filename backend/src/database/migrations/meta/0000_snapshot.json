@@ -1,0 +1,128 @@
+{
+  "id": "68cee482-5540-4607-b551-864e51fbe911",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.diem_thi": {
+      "name": "diem_thi",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "sbd": {
+          "name": "sbd",
+          "type": "varchar(8)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "toan": {
+          "name": "toan",
+          "type": "numeric(4, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ngu_van": {
+          "name": "ngu_van",
+          "type": "numeric(4, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ngoai_ngu": {
+          "name": "ngoai_ngu",
+          "type": "numeric(4, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "vat_li": {
+          "name": "vat_li",
+          "type": "numeric(4, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "hoa_hoc": {
+          "name": "hoa_hoc",
+          "type": "numeric(4, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sinh_hoc": {
+          "name": "sinh_hoc",
+          "type": "numeric(4, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lich_su": {
+          "name": "lich_su",
+          "type": "numeric(4, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dia_li": {
+          "name": "dia_li",
+          "type": "numeric(4, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gdcd": {
+          "name": "gdcd",
+          "type": "numeric(4, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ma_ngoai_ngu": {
+          "name": "ma_ngoai_ngu",
+          "type": "varchar(4)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "idx_sbd": {
+          "name": "idx_sbd",
+          "columns": [
+            {
+              "expression": "sbd",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "diem_thi_sbd_unique": {
+          "name": "diem_thi_sbd_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "sbd"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
