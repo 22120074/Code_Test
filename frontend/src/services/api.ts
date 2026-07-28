@@ -8,6 +8,9 @@ const api = axios.create({
 api.interceptors.response.use(
   (response) => response.data,
   (error) => {
+    if (error.code === 'ECONNABORTED' && error.message.includes('timeout')) {
+      error.message = error.message.charAt(0).toUpperCase() + error.message.slice(1);
+    }
     return Promise.reject(error);
   }
 );

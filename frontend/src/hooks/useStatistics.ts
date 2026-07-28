@@ -14,7 +14,11 @@ export function useStatistics() {
       const response = await scoreService.getStatistics();
       setStats(response.data ?? []);
     } catch (err: any) {
-      setError(err.message || 'Unable to load score statistics data.');
+      if (err.response && err.response.status >= 500) {
+        setError('System error encountered. Please try again later.');
+      } else {
+        setError(err.message || 'Unable to load score statistics data.');
+      }
     } finally {
       setLoading(false);
     }

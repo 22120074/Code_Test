@@ -14,7 +14,11 @@ export function useTopGroupA() {
       const response = await scoreService.getTopGroupA();
       setTopGroupA(response.data ?? []);
     } catch (err: any) {
-      setError(err.message || 'Unable to load Top Group A data.');
+      if (err.response && err.response.status >= 500) {
+        setError('System error encountered. Please try again later.');
+      } else {
+        setError(err.message || 'Unable to load Top Group A data.');
+      }
     } finally {
       setLoading(false);
     }

@@ -1,5 +1,7 @@
 # G-SCORES — 2024 National High School Exam Scores System
 
+**Live Demo:** [https://code-test-sable.vercel.app/](https://code-test-sable.vercel.app/)
+
 ---
 
 ## Project Structure
