@@ -31,9 +31,9 @@ export class SeederService {
 
   async run(): Promise<SeedResult> {
     const startMs = Date.now();
-    console.log(`[SeederService] 📂 CSV: ${this.csvReader.getFilePath()}`);
+    console.log(`[SeederService] CSV: ${this.csvReader.getFilePath()}`);
     console.log(
-      `[SeederService] 📦 Batch size: ${this.batchSize.toLocaleString()}\n`,
+      `[SeederService] Batch size: ${this.batchSize.toLocaleString()}\n`,
     );
 
     let batch: NewExamScore[] = [];

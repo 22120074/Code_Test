@@ -40,13 +40,13 @@ async function startServer() {
     app.use(errorHandler);
 
     await db.execute(sql`SELECT 1`);
-    console.log("✅ Database connection successful.");
+    console.log("Database connection successful.");
 
     app.listen(port, () => {
-      console.log(`🚀 Server is running on port ${port}`);
+      console.log(`Server is running on port ${port}`);
     });
   } catch (error) {
-    console.error("❌ Failed to connect to the database:", error);
+    console.error("Failed to connect to the database:", error);
     process.exit(1);
   }
 }

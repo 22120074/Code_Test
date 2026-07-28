@@ -12,13 +12,13 @@ export class MigrationService {
   }
 
   async run(): Promise<void> {
-    console.log("[MigrationService] 🔄 Đang apply migrations...");
-    console.log(`[MigrationService] 📁 Folder: ${this.migrationsFolder}`);
+    console.log("[MigrationService] Applying migrations...");
+    console.log(`[MigrationService] Folder: ${this.migrationsFolder}`);
 
     await migrate(this.dbService.db, {
       migrationsFolder: this.migrationsFolder,
     });
 
-    console.log("[MigrationService] ✅ Migration hoàn tất.");
+    console.log("[MigrationService] Migration completed successfully.");
   }
 }

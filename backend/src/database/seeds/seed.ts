@@ -19,7 +19,7 @@ class SeedRunner {
       const result = await this.seederService.run();
       this.printResult(result);
     } catch (err) {
-      console.error("\n[SeedRunner] ❌ Error:", err);
+      console.error("\n[SeedRunner] Error:", err);
       process.exitCode = 1;
     } finally {
       await this.dbService.close();
@@ -35,7 +35,7 @@ class SeedRunner {
 
   private printResult(result: SeedResult): void {
     const elapsed = (result.elapsedMs / 1000).toFixed(1);
-    console.log("\n📊 Seed Results:");
+    console.log("\nSeed Results:");
     console.log(`   Total batches : ${result.totalBatches.toLocaleString()}`);
     console.log(`   Inserted      : ${result.totalInserted.toLocaleString()}`);
     console.log(

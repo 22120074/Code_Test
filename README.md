@@ -2,17 +2,17 @@
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Code_Test/
 ├── backend/          # REST API (Express + Drizzle ORM)
-└── frontend/         # SPA (React + Vite + TailwindCSS v4)
+└── frontend/         # SPA (React + Vite + TypeScript + TailwindCSS v4)
 ```
 
 ---
 
-## ⚙️ System Requirements
+## System Requirements
 
 | Tool       | Minimum Version |
 | ---------- | --------------- |
@@ -23,7 +23,7 @@ Code_Test/
 
 ---
 
-## 🗄️ Backend
+## Backend
 
 ### Technologies Used
 
@@ -66,7 +66,7 @@ backend/src/
 
 ---
 
-## 🖥️ Frontend
+## Frontend
 
 ### Technologies Used
 
@@ -112,7 +112,7 @@ frontend/src/
 
 ---
 
-## 🚀 Installation & Setup
+## Installation & Setup
 
 ### 1. Install Dependencies
 
