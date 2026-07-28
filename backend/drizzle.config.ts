@@ -7,6 +7,6 @@ export default defineConfig({
   dbCredentials: {
     url:
       process.env["DATABASE_URL"] ??
-      "postgres://postgres:password@localhost:5432/diem_thi_thpt",
+      "postgres://postgres:password@localhost:5432/exam_scores",
   },
 });

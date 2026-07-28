@@ -7,31 +7,31 @@ import { SUBJECT_LIST } from "../commons/subjects";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function SearchScoresPage() {
-  const [sbd, setSbd] = useState("");
+  const [registrationNumber, setRegistrationNumber] = useState("");
   const [validationError, setValidationError] = useState("");
   const { result, loading, error: apiError, searchScore } = useScoreSearch();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSbd(e.target.value);
+    setRegistrationNumber(e.target.value);
     if (validationError) {
       setValidationError("");
     }
   };
 
   const handleSearch = () => {
-    const trimmedSbd = sbd.trim();
-    if (!trimmedSbd) {
+    const trimmedRegNum = registrationNumber.trim();
+    if (!trimmedRegNum) {
       setValidationError("Registration number is required.");
       return;
     }
 
-    if (trimmedSbd.length !== 8) {
+    if (trimmedRegNum.length !== 8) {
       setValidationError("Registration number must be exactly 8 characters.");
       return;
     }
 
     setValidationError("");
-    searchScore(trimmedSbd);
+    searchScore(trimmedRegNum);
   };
 
   return (
@@ -54,7 +54,7 @@ export default function SearchScoresPage() {
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
             <input
               type="text"
-              value={sbd}
+              value={registrationNumber}
               onChange={handleInputChange}
               onKeyDown={(e) => e.key === "Enter" && handleSearch()}
               placeholder="Nhập số báo danh (VD: 01000001)"
@@ -104,17 +104,17 @@ export default function SearchScoresPage() {
             <p className="text-sm font-medium text-gray-600">
               SBD:{" "}
               <span className="text-lg md:text-xl font-bold text-primary tracking-wide">
-                {result.sbd}
+                {result.registrationNumber}
               </span>
             </p>
           </div>
 
           <div className="flex flex-wrap gap-2">
-            {result.ma_ngoai_ngu && (
+            {result.foreignLanguageCode && (
               <div className="flex items-center gap-2 px-3 py-1.5 bg-blue-50/60 rounded-lg border border-blue-100 text-sm transition-colors hover:bg-blue-100/70">
                 <span className="text-gray-600 font-medium">Mã ngoại ngữ:</span>
                 <span className="font-bold text-primary">
-                  {result.ma_ngoai_ngu}
+                  {result.foreignLanguageCode}
                 </span>
               </div>
             )}

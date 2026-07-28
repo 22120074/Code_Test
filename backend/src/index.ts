@@ -2,10 +2,10 @@
 import express from "express";
 import cors from "cors";
 import { sql } from "drizzle-orm";
-import { createDiemThiRoutes } from "./routes/diemthi.routes.js";
+import { createExamScoreRoutes } from "./routes/examScore.routes.js";
 import { DatabaseService } from "./database/database.service.js";
-import { DiemThiService } from "./services/diemthi.service.js";
-import { DiemThiController } from "./controllers/diemthi.controller.js";
+import { ExamScoreService } from "./services/examScore.service.js";
+import { ExamScoreController } from "./controllers/examScore.controller.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 
 const app = express();
@@ -26,12 +26,12 @@ async function startServer() {
     const dbService = DatabaseService.getInstance();
     const db = dbService.db;
 
-    const diemThiService = new DiemThiService(db);
+    const examScoreService = new ExamScoreService(db);
 
-    const diemThiController = new DiemThiController(diemThiService);
+    const examScoreController = new ExamScoreController(examScoreService);
 
-    const diemThiRoutes = createDiemThiRoutes(diemThiController);
-    app.use("/api/score", diemThiRoutes);
+    const examScoreRoutes = createExamScoreRoutes(examScoreController);
+    app.use("/api/score", examScoreRoutes);
 
     app.get("/", (req, res) => {
       res.json({ message: "API is running" });

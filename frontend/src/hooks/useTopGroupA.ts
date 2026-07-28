@@ -14,7 +14,7 @@ export function useTopGroupA() {
       const response = await scoreService.getTopGroupA();
       setTopGroupA(response.data ?? []);
     } catch (err: any) {
-      setError(err.message || 'Không thể tải dữ liệu top khối A.');
+      setError(err.message || 'Unable to load Top Group A data.');
     } finally {
       setLoading(false);
     }

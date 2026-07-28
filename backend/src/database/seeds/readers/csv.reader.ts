@@ -7,17 +7,17 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export interface CsvRow {
-  sbd: string;
-  toan?: string;
-  ngu_van?: string;
-  ngoai_ngu?: string;
-  vat_li?: string;
-  hoa_hoc?: string;
-  sinh_hoc?: string;
-  lich_su?: string;
-  dia_li?: string;
-  gdcd?: string;
-  ma_ngoai_ngu?: string;
+  registrationNumber: string;
+  math?: string;
+  literature?: string;
+  foreignLanguage?: string;
+  physics?: string;
+  chemistry?: string;
+  biology?: string;
+  history?: string;
+  geography?: string;
+  civicEducation?: string;
+  foreignLanguageCode?: string;
 }
 
 export function parseScore(raw: string | undefined): string | null {
@@ -36,7 +36,20 @@ export class CsvReader {
   async *read(): AsyncGenerator<CsvRow> {
     const stream = createReadStream(this.filePath).pipe(
       parse({
-        columns: true,
+        columns: [
+          'registrationNumber',
+          'math',
+          'literature',
+          'foreignLanguage',
+          'physics',
+          'chemistry',
+          'biology',
+          'history',
+          'geography',
+          'civicEducation',
+          'foreignLanguageCode',
+        ],
+        from_line: 2,
         skip_empty_lines: true,
         trim: true,
         relax_column_count: true,

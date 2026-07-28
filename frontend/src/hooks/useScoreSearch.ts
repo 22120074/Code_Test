@@ -8,13 +8,13 @@ export function useScoreSearch() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const searchScore = async (sbd: string) => {
+  const searchScore = async (registrationNumber: string) => {
     setLoading(true);
     setError("");
     setResult(null);
 
     try {
-      const response = await scoreService.getScoreBySbd(sbd.trim());
+      const response = await scoreService.getScoreByRegistrationNumber(registrationNumber.trim());
       setResult(response.data);
     } catch (err: unknown) {
       const axiosError = err as AxiosError<{ message?: string }>;

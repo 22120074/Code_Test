@@ -1,8 +1,8 @@
-# G-SCORES — Hệ Thống Tra Cứu Điểm THPT Quốc Gia 2024
+# G-SCORES — 2024 National High School Exam Scores System
 
 ---
 
-## 📁 Cấu Trúc Dự Án
+## 📁 Project Structure
 
 ```
 Code_Test/
@@ -12,74 +12,75 @@ Code_Test/
 
 ---
 
-## ⚙️ Yêu Cầu Hệ Thống
+## ⚙️ System Requirements
 
-| Công cụ    | Phiên bản tối thiểu |
-| ---------- | ------------------- |
-| Node.js    | v18+                |
-| PostgreSQL | v14+                |
-| npm        | v9+                 |
+| Tool       | Minimum Version |
+| ---------- | --------------- |
+| Node.js    | v18+            |
+| PostgreSQL | v14+            |
+| npm        | v9+             |
+| Docker     | Required        |
 
 ---
 
 ## 🗄️ Backend
 
-### Công Nghệ Sử Dụng
+### Technologies Used
 
-| Thư viện    | Mục đích                            |
+| Library     | Purpose                             |
 | ----------- | ----------------------------------- |
 | Express.js  | HTTP server & routing               |
 | Drizzle ORM | Query builder & type-safe DB access |
-| PostgreSQL  | Cơ sở dữ liệu chính                 |
+| PostgreSQL  | Main database                       |
 | TypeScript  | Type safety                         |
 
 ### API Endpoints
 
-| Method | Endpoint                         | Mô tả                           |
-| ------ | -------------------------------- | ------------------------------- |
-| `GET`  | `/api/score/look-up/:sbd`        | Tra cứu điểm theo Số Báo Danh   |
-| `GET`  | `/api/score/reports/statistics`  | Thống kê phổ điểm theo 4 cấp độ |
-| `GET`  | `/api/score/reports/top-group-a` | Top 10 thí sinh khối A          |
+| Method | Endpoint                                 | Description                         |
+| ------ | ---------------------------------------- | ----------------------------------- |
+| `GET`  | `/api/score/look-up/:registrationNumber` | Lookup score by Registration Number |
+| `GET`  | `/api/score/reports/statistics`          | Statistics across 4 score levels    |
+| `GET`  | `/api/score/reports/top-group-a`         | Top 10 students in Group A          |
 
-### Cấu Trúc Backend
+### Backend Structure
 
 ```
 backend/src/
-├── index.ts                   # Entry point, khởi động Express server
-├── config/                    # Cấu hình ứng dụng
+├── index.ts                     # Entry point, starts Express server
+├── config/                      # Application config
 ├── controllers/
-│   └── diemthi.controller.ts  # Xử lý request/response HTTP
+│   └── examScore.controller.ts  # HTTP request/response handling
 ├── services/
-│   └── diemthi.service.ts     # Business logic & DB queries
+│   └── examScore.service.ts     # Business logic & DB queries
 ├── routes/
-│   └── diemthi.routes.ts      # Định nghĩa route
+│   └── examScore.routes.ts      # Route definitions
 ├── database/
-│   ├── database.service.ts    # Singleton kết nối DB
-│   ├── schema/                # Drizzle schema definitions
-│   ├── migrations/            # SQL migration files
-│   └── seeds/                 # Script & data để seed DB
+│   ├── database.service.ts      # DB connection singleton
+│   ├── schema/                  # Drizzle schema definitions
+│   ├── migrations/              # SQL migration files
+│   └── seeds/                   # Scripts & data for DB seeding
 ├── core/
 └── middlewares/
-    └── errorHandler.ts        # Global error handler middleware
+    └── errorHandler.ts          # Global error handler middleware
 ```
 
 ---
 
 ## 🖥️ Frontend
 
-### Công Nghệ Sử Dụng
+### Technologies Used
 
-| Thư viện              | Mục đích                  |
-| --------------------- | ------------------------- |
-| React 18 + TypeScript | UI framework              |
-| Vite                  | Build tool                |
-| TailwindCSS v4        | Styling với design tokens |
-| React Router v6       | Client-side routing       |
-| Axios                 | HTTP client               |
-| Recharts              | Biểu đồ thống kê          |
-| Lucide React          | Icon set                  |
+| Library               | Purpose                    |
+| --------------------- | -------------------------- |
+| React 18 + TypeScript | UI framework               |
+| Vite                  | Build tool                 |
+| TailwindCSS v4        | Styling with design tokens |
+| React Router v6       | Client-side routing        |
+| Axios                 | HTTP client                |
+| Recharts              | Statistical charts         |
+| Lucide React          | Icon set                   |
 
-### Cấu Trúc Frontend
+### Frontend Structure
 
 ```
 frontend/src/
@@ -87,104 +88,91 @@ frontend/src/
 ├── main.tsx                   # Entry point
 ├── index.css                  # Design tokens (TailwindCSS @theme)
 ├── routes/
-│   └── AppRoutes.tsx          # Định nghĩa tất cả client-side routes
+│   └── AppRoutes.tsx          # Defines all client-side routes
 ├── layouts/
-│   └── MainLayout.tsx         # Layout chính (Header + Sidebar + Outlet)
+│   └── MainLayout.tsx         # Main layout (Header + Sidebar + Outlet)
 ├── components/
 │   ├── Header.tsx
 │   ├── Sidebar.tsx
 │   └── LoadingSpinner.tsx
 ├── pages/
-│   ├── DashboardPage.tsx      # Trang tổng quan
-│   ├── SearchScoresPage.tsx   # Tra cứu điểm theo SBD
-│   └── ReportsPage.tsx        # Biểu đồ phổ điểm & Top 10 Khối A
+│   ├── DashboardPage.tsx      # Overview page
+│   ├── SearchScoresPage.tsx   # Search score by registration number
+│   └── ReportsPage.tsx        # Score distribution charts & Top 10
 ├── hooks/
-│   ├── useScoreSearch.ts      # Hook tra cứu điểm + xử lý lỗi API
-│   ├── useStatistics.ts       # Hook lấy dữ liệu thống kê phổ điểm
-│   └── useTopGroupA.ts        # Hook lấy Top 10 thí sinh Khối A
+│   ├── useScoreSearch.ts      # Score search hook + API error handling
+│   ├── useStatistics.ts       # Hook for fetching distribution stats
+│   └── useTopGroupA.ts        # Hook for fetching Top 10 Group A
 ├── services/
-│   ├── api.ts                 # Axios instance với interceptors
-│   └── scoreService.ts        # Các hàm gọi API & TypeScript interfaces
+│   ├── api.ts                 # Axios instance with interceptors
+│   └── scoreService.ts        # API call functions & TypeScript interfaces
 └── commons/
-    └── subjects.ts            # Map mã môn → tên hiển thị (SUBJECT_MAP)
+    └── subjects.ts            # Subject code → Display name map (SUBJECT_MAP)
 ```
 
 ---
 
-## 🚀 Cài Đặt & Khởi Động
+## 🚀 Installation & Setup
 
-### 1. Cài Đặt Dependencies
-
-Mở 2 terminal để cài đặt cho cả backend và frontend:
+### 1. Install Dependencies
 
 ```bash
-# Terminal 1 - Backend
-cd backend
-npm install
-
-# Terminal 2 - Frontend
 cd frontend
 npm install
 ```
 
-### 2. Cấu Hình Biến Môi Trường
+### 2. Configure Environment Variables
 
-**Backend:** Sao chép file mẫu trong thư mục `backend/`:
-
-```bash
-cd backend
-cp .env.example .env
-```
-
-**Frontend:** Sao chép file mẫu trong thư mục `frontend/`:
+**Frontend:** Copy the example file in the `frontend/` directory:
 
 ```bash
 cd frontend
 cp .env.example .env
 ```
 
-### 3. Thiết Lập Database (Backend)
-
-Khởi tạo cơ sở dữ liệu PostgreSQL bằng Docker Compose:
+**Backend:** Copy the example file in the `backend/` directory:
 
 ```bash
 cd backend
-docker-compose up -d
+cp .env.example .env
 ```
 
-Sau đó, đặt file CSV dữ liệu điểm thi vào `backend/src/database/seeds/data/` và chạy:
+### 3. Setup Backend & Database with Docker
+
+Start the PostgreSQL database and Backend API using Docker Compose:
 
 ```bash
 cd backend
-npm run db:migrate  # Chạy migration
-npm run seed        # Thêm dữ liệu mẫu
+docker-compose up -d --build
 ```
 
-### 4. Khởi Động Ứng Dụng
+> The API will automatically connect to the database when it's ready. The API runs on port 3000.
 
-Mở 2 terminal để chạy song song:
+After the containers are up and running, place your CSV data file `exam_scores_2024.csv` into `backend/src/database/seeds/data/` (or ensure it's there), and run the following to migrate and seed the database:
 
 ```bash
-# Terminal 1 — Backend
 cd backend
-npm run dev
+# Run schema migrations
+docker exec -it exam_scores_api npm run db:migrate
+# Seed sample data
+docker exec -it exam_scores_api npm run seed
+```
 
-# Terminal 2 — Frontend
+### 4. Start Frontend Application
+
+With the backend running via Docker, you only need to start the frontend locally:
+
+```bash
 cd frontend
 npm run dev
 ```
 
 - Frontend: **http://localhost:5173**
-- Backend API: **http://localhost:3000**
+- Backend API (via Docker): **http://localhost:3000**
 
-### 5. Build Production
+### 5. Production Build
 
 ```bash
-# Backend
-cd backend
-npm run build
-npm start
-
 # Frontend
 cd frontend
 npm run build

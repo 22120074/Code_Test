@@ -14,7 +14,7 @@ export function useStatistics() {
       const response = await scoreService.getStatistics();
       setStats(response.data ?? []);
     } catch (err: any) {
-      setError(err.message || 'Không thể tải dữ liệu thống kê phổ điểm.');
+      setError(err.message || 'Unable to load score statistics data.');
     } finally {
       setLoading(false);
     }

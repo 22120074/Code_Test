@@ -19,7 +19,7 @@ class SeedRunner {
       const result = await this.seederService.run();
       this.printResult(result);
     } catch (err) {
-      console.error("\n[SeedRunner] ❌ Lỗi:", err);
+      console.error("\n[SeedRunner] ❌ Error:", err);
       process.exitCode = 1;
     } finally {
       await this.dbService.close();
@@ -29,19 +29,19 @@ class SeedRunner {
   private printHeader(): void {
     const line = "=".repeat(55);
     console.log(line);
-    console.log("  SEED ĐIỂM THI THPT QUỐC GIA 2024");
+    console.log("  SEED 2024 NATIONAL HIGH SCHOOL EXAM SCORES");
     console.log(line + "\n");
   }
 
   private printResult(result: SeedResult): void {
     const elapsed = (result.elapsedMs / 1000).toFixed(1);
-    console.log("\n📊 Kết quả seed:");
-    console.log(`   Tổng batch  : ${result.totalBatches.toLocaleString()}`);
-    console.log(`   Inserted    : ${result.totalInserted.toLocaleString()}`);
+    console.log("\n📊 Seed Results:");
+    console.log(`   Total batches : ${result.totalBatches.toLocaleString()}`);
+    console.log(`   Inserted      : ${result.totalInserted.toLocaleString()}`);
     console.log(
-      `   Skipped     : ${result.totalSkipped.toLocaleString()} (trùng SBD)`,
+      `   Skipped       : ${result.totalSkipped.toLocaleString()} (duplicate registration numbers)`,
     );
-    console.log(`   Thời gian   : ${elapsed}s`);
+    console.log(`   Elapsed time  : ${elapsed}s`);
   }
 }
 

@@ -1,11 +1,11 @@
 {
-  "id": "68cee482-5540-4607-b551-864e51fbe911",
+  "id": "fcf56c7d-49de-4a5e-9278-0414ccbc6ef2",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.diem_thi": {
-      "name": "diem_thi",
+    "public.exam_scores": {
+      "name": "exam_scores",
       "schema": "",
       "columns": {
         "id": {
@@ -14,79 +14,79 @@
           "primaryKey": true,
           "notNull": true
         },
-        "sbd": {
-          "name": "sbd",
+        "registration_number": {
+          "name": "registration_number",
           "type": "varchar(8)",
           "primaryKey": false,
           "notNull": true
         },
-        "toan": {
-          "name": "toan",
+        "math": {
+          "name": "math",
           "type": "numeric(4, 2)",
           "primaryKey": false,
           "notNull": false
         },
-        "ngu_van": {
-          "name": "ngu_van",
+        "literature": {
+          "name": "literature",
           "type": "numeric(4, 2)",
           "primaryKey": false,
           "notNull": false
         },
-        "ngoai_ngu": {
-          "name": "ngoai_ngu",
+        "foreign_language": {
+          "name": "foreign_language",
           "type": "numeric(4, 2)",
           "primaryKey": false,
           "notNull": false
         },
-        "vat_li": {
-          "name": "vat_li",
+        "physics": {
+          "name": "physics",
           "type": "numeric(4, 2)",
           "primaryKey": false,
           "notNull": false
         },
-        "hoa_hoc": {
-          "name": "hoa_hoc",
+        "chemistry": {
+          "name": "chemistry",
           "type": "numeric(4, 2)",
           "primaryKey": false,
           "notNull": false
         },
-        "sinh_hoc": {
-          "name": "sinh_hoc",
+        "biology": {
+          "name": "biology",
           "type": "numeric(4, 2)",
           "primaryKey": false,
           "notNull": false
         },
-        "lich_su": {
-          "name": "lich_su",
+        "history": {
+          "name": "history",
           "type": "numeric(4, 2)",
           "primaryKey": false,
           "notNull": false
         },
-        "dia_li": {
-          "name": "dia_li",
+        "geography": {
+          "name": "geography",
           "type": "numeric(4, 2)",
           "primaryKey": false,
           "notNull": false
         },
-        "gdcd": {
-          "name": "gdcd",
+        "civic_education": {
+          "name": "civic_education",
           "type": "numeric(4, 2)",
           "primaryKey": false,
           "notNull": false
         },
-        "ma_ngoai_ngu": {
-          "name": "ma_ngoai_ngu",
+        "foreign_language_code": {
+          "name": "foreign_language_code",
           "type": "varchar(4)",
           "primaryKey": false,
           "notNull": false
         }
       },
       "indexes": {
-        "idx_sbd": {
-          "name": "idx_sbd",
+        "idx_registration_number": {
+          "name": "idx_registration_number",
           "columns": [
             {
-              "expression": "sbd",
+              "expression": "registration_number",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -101,11 +101,11 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "diem_thi_sbd_unique": {
-          "name": "diem_thi_sbd_unique",
+        "exam_scores_registration_number_unique": {
+          "name": "exam_scores_registration_number_unique",
           "nullsNotDistinct": false,
           "columns": [
-            "sbd"
+            "registration_number"
           ]
         }
       },

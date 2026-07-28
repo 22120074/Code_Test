@@ -15,29 +15,29 @@ export class EnvConfig {
     this.databaseUrl = this.require("DATABASE_URL");
     this.dbHost = this.get("DB_HOST", "localhost");
     this.dbPort = parseInt(this.get("DB_PORT", "5432"), 10);
-    this.dbName = this.get("DB_NAME", "diem_thi_thpt");
+    this.dbName = this.get("DB_NAME", "exam_scores");
     this.dbUser = this.get("DB_USER", "postgres");
     this.dbPassword = this.require("DB_PASSWORD");
     this.seedBatchSize = parseInt(this.get("SEED_BATCH_SIZE", "1000"), 10);
   }
 
-  /** Trả về giá trị env, throw nếu không tồn tại. */
+  /** Return env value, throw if missing. */
   private require(key: string): string {
     const value = process.env[key];
     if (!value) {
       throw new Error(
-        `[EnvConfig] Biến môi trường bắt buộc "${key}" chưa được khai báo.`,
+        `[EnvConfig] Required environment variable "${key}" is missing.`,
       );
     }
     return value;
   }
 
-  /** Trả về giá trị env hoặc giá trị mặc định. */
+  /** Return env value or default. */
   private get(key: string, defaultValue: string): string {
     return process.env[key] ?? defaultValue;
   }
 
-  /** Lấy singleton instance (lazy init). */
+  /** Get singleton instance (lazy init). */
   static getInstance(): EnvConfig {
     if (!EnvConfig.instance) {
       EnvConfig.instance = new EnvConfig();

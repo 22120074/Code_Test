@@ -1,5 +1,5 @@
-import { diemThi } from "../schema/index.js";
-import type { NewDiemThi } from "../schema/index.js";
+import { examScore } from "../schema/index.js";
+import type { NewExamScore } from "../schema/index.js";
 import { envConfig } from "../../config/env.js";
 import type { DatabaseService } from "../database.service.js";
 import { CsvReader, parseScore } from "./readers/index.js";
@@ -23,7 +23,7 @@ export class SeederService {
 
   constructor(
     private readonly dbService: DatabaseService,
-    csvFileName = "diem_thi_thpt_2024.csv",
+    csvFileName = "exam_scores_2024.csv",
   ) {
     this.csvReader = new CsvReader(csvFileName);
     this.batchSize = envConfig.seedBatchSize;
@@ -36,7 +36,7 @@ export class SeederService {
       `[SeederService] 📦 Batch size: ${this.batchSize.toLocaleString()}\n`,
     );
 
-    let batch: NewDiemThi[] = [];
+    let batch: NewExamScore[] = [];
     let totalInserted = 0;
     let totalSkipped = 0;
     let totalBatches = 0;
@@ -73,38 +73,38 @@ export class SeederService {
   }
 
   /**
-   * Chuyển một dòng CSV thành NewDiemThi record.
-   * Trả về null nếu dòng không hợp lệ (thiếu SBD).
+   * Convert a CSV row into a NewExamScore record.
+   * Returns null if the row is invalid (missing Registration Number).
    */
-  private mapRowToRecord(row: CsvRow): NewDiemThi | null {
-    const sbd = row.sbd?.trim();
+  private mapRowToRecord(row: CsvRow): NewExamScore | null {
+    const sbd = row.registrationNumber?.trim();
     if (!sbd) return null;
 
     return {
-      sbd,
-      toan: parseScore(row.toan),
-      ngu_van: parseScore(row.ngu_van),
-      ngoai_ngu: parseScore(row.ngoai_ngu),
-      vat_li: parseScore(row.vat_li),
-      hoa_hoc: parseScore(row.hoa_hoc),
-      sinh_hoc: parseScore(row.sinh_hoc),
-      lich_su: parseScore(row.lich_su),
-      dia_li: parseScore(row.dia_li),
-      gdcd: parseScore(row.gdcd),
-      ma_ngoai_ngu: row.ma_ngoai_ngu?.trim() || null,
+      registrationNumber: sbd,
+      math: parseScore(row.math),
+      literature: parseScore(row.literature),
+      foreignLanguage: parseScore(row.foreignLanguage),
+      physics: parseScore(row.physics),
+      chemistry: parseScore(row.chemistry),
+      biology: parseScore(row.biology),
+      history: parseScore(row.history),
+      geography: parseScore(row.geography),
+      civicEducation: parseScore(row.civicEducation),
+      foreignLanguageCode: row.foreignLanguageCode?.trim() || null,
     };
   }
 
   /**
-   * Insert một batch vào DB.
-   * Dùng ON CONFLICT DO NOTHING để idempotent (safe khi chạy nhiều lần).
+   * Insert a batch into the DB.
+   * Use ON CONFLICT DO NOTHING for idempotency (safe for multiple runs).
    */
-  private async insertBatch(records: NewDiemThi[]): Promise<BatchResult> {
+  private async insertBatch(records: NewExamScore[]): Promise<BatchResult> {
     const rows = await this.dbService.db
-      .insert(diemThi)
+      .insert(examScore)
       .values(records)
-      .onConflictDoNothing({ target: diemThi.sbd })
-      .returning({ id: diemThi.id });
+      .onConflictDoNothing({ target: examScore.registrationNumber })
+      .returning({ id: examScore.id });
 
     return {
       inserted: rows.length,
@@ -112,7 +112,7 @@ export class SeederService {
     };
   }
 
-  /** Log tiến trình mỗi 10 batch. */
+  /** Log progress every 10 batches. */
   private logProgress(
     batchCount: number,
     inserted: number,

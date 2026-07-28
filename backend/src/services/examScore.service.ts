@@ -1,42 +1,42 @@
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import type * as schema from "../database/schema/index.js";
-import { diemThi } from "../database/schema/index.js";
+import { examScore } from "../database/schema/index.js";
 import { eq, sql, desc, and, isNotNull } from "drizzle-orm";
 
 type Db = NodePgDatabase<typeof schema>;
 
-export class DiemThiService {
+export class ExamScoreService {
   constructor(private readonly db: Db) {}
 
-  async getScoreBySbd(sbd: string) {
+  async getScoreByRegistrationNumber(registrationNumber: string) {
     const result = await this.db
       .select()
-      .from(diemThi)
-      .where(eq(diemThi.sbd, sbd))
+      .from(examScore)
+      .where(eq(examScore.registrationNumber, registrationNumber))
       .limit(1);
     return result[0] ?? null;
   }
 
   /**
-   * 2. Thống kê theo 4 mức điểm
+   * 2. Statistics by 4 score levels
    */
   async getStatistics() {
     const subjects = [
-      "toan",
-      "ngu_van",
-      "ngoai_ngu",
-      "vat_li",
-      "hoa_hoc",
-      "sinh_hoc",
-      "lich_su",
-      "dia_li",
-      "gdcd",
+      "math",
+      "literature",
+      "foreignLanguage",
+      "physics",
+      "chemistry",
+      "biology",
+      "history",
+      "geography",
+      "civicEducation",
     ] as const;
 
     const selects: Record<string, any> = {};
 
     for (const sub of subjects) {
-      const col = diemThi[sub];
+      const col = examScore[sub];
 
       selects[`${sub}_level1`] =
         sql`SUM(CASE WHEN ${col} >= 8 THEN 1 ELSE 0 END)::int`;
@@ -48,7 +48,7 @@ export class DiemThiService {
         sql`SUM(CASE WHEN ${col} IS NOT NULL AND ${col} < 4 THEN 1 ELSE 0 END)::int`;
     }
 
-    const result = await this.db.select(selects).from(diemThi);
+    const result = await this.db.select(selects).from(examScore);
     const row = result[0];
 
     if (!row) return [];
@@ -63,25 +63,25 @@ export class DiemThiService {
   }
 
   /**
-   * 3. Top 10 khối A
+   * 3. Top 10 Group A
    */
   async getTop10GroupA() {
-    const totalScore = sql`(${diemThi.toan} + ${diemThi.vat_li} + ${diemThi.hoa_hoc})`;
+    const totalScore = sql`(${examScore.math} + ${examScore.physics} + ${examScore.chemistry})`;
 
     return await this.db
       .select({
-        sbd: diemThi.sbd,
-        toan: diemThi.toan,
-        vat_li: diemThi.vat_li,
-        hoa_hoc: diemThi.hoa_hoc,
+        registrationNumber: examScore.registrationNumber,
+        math: examScore.math,
+        physics: examScore.physics,
+        chemistry: examScore.chemistry,
         totalScore: sql<number>`ROUND(${totalScore}::numeric, 2)::float`,
       })
-      .from(diemThi)
+      .from(examScore)
       .where(
         and(
-          isNotNull(diemThi.toan),
-          isNotNull(diemThi.vat_li),
-          isNotNull(diemThi.hoa_hoc),
+          isNotNull(examScore.math),
+          isNotNull(examScore.physics),
+          isNotNull(examScore.chemistry),
         ),
       )
       .orderBy(desc(totalScore))

@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { DiemThiController } from "../controllers/diemthi.controller.js";
+import { ExamScoreController } from "../controllers/examScore.controller.js";
 
-export function createDiemThiRoutes(controller: DiemThiController) {
+export function createExamScoreRoutes(controller: ExamScoreController) {
   const router = Router();
 
-  router.get("/look-up/:sbd", (req, res, next) =>
-    controller.getBySbd(req, res, next),
+  router.get("/look-up/:registrationNumber", (req, res, next) =>
+    controller.getByRegistrationNumber(req, res, next),
   );
   router.get("/reports/statistics", (req, res, next) =>
     controller.getStatistics(req, res, next),

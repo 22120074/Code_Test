@@ -228,10 +228,10 @@ export default function ReportsPage() {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {topGroupA.map((student, index) => {
-                  const score = student.totalScore ?? student.total_score ?? 0;
+                  const score = student.totalScore ?? 0;
                   return (
                     <tr
-                      key={student.sbd}
+                      key={student.registrationNumber}
                       className="hover:bg-blue-50/60 transition-colors"
                     >
                       <td className="py-2.5 px-3 text-sm font-medium text-text-main">
@@ -246,16 +246,16 @@ export default function ReportsPage() {
                         </span>
                       </td>
                       <td className="py-2.5 px-3 text-sm font-semibold text-text-main tracking-wide">
-                        {student.sbd}
+                        {student.registrationNumber}
                       </td>
                       <td className="hidden sm:table-cell py-2.5 px-3 text-sm text-center text-gray-700">
-                        {student.toan ?? "—"}
+                        {student.math ?? "—"}
                       </td>
                       <td className="hidden sm:table-cell py-2.5 px-3 text-sm text-center text-gray-700">
-                        {student.vat_li ?? "—"}
+                        {student.physics ?? "—"}
                       </td>
                       <td className="hidden sm:table-cell py-2.5 px-3 text-sm text-center text-gray-700">
-                        {student.hoa_hoc ?? "—"}
+                        {student.chemistry ?? "—"}
                       </td>
                       <td className="py-2.5 px-3 text-sm font-bold text-primary text-right">
                         {Number(score).toFixed(2)}

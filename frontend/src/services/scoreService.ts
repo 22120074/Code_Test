@@ -1,17 +1,17 @@
 import api from './api';
 
 export interface ScoreResult {
-  sbd: string;
-  toan: string | null;
-  ngu_van: string | null;
-  ngoai_ngu: string | null;
-  vat_li: string | null;
-  hoa_hoc: string | null;
-  sinh_hoc: string | null;
-  lich_su: string | null;
-  dia_li: string | null;
-  gdcd: string | null;
-  ma_ngoai_ngu: string | null;
+  registrationNumber: string;
+  math: string | null;
+  literature: string | null;
+  foreignLanguage: string | null;
+  physics: string | null;
+  chemistry: string | null;
+  biology: string | null;
+  history: string | null;
+  geography: string | null;
+  civicEducation: string | null;
+  foreignLanguageCode: string | null;
 }
 
 export interface SubjectStat {
@@ -23,17 +23,16 @@ export interface SubjectStat {
 }
 
 export interface TopGroupA {
-  sbd: string;
-  toan?: number | string | null;
-  vat_li?: number | string | null;
-  hoa_hoc?: number | string | null;
+  registrationNumber: string;
+  math?: number | string | null;
+  physics?: number | string | null;
+  chemistry?: number | string | null;
   totalScore?: number | string;
-  total_score?: number | string;
 }
 
 export const scoreService = {
-  getScoreBySbd: (sbd: string): Promise<{ success: boolean; data: ScoreResult }> => {
-    return api.get(`/score/look-up/${sbd}`);
+  getScoreByRegistrationNumber: (registrationNumber: string): Promise<{ success: boolean; data: ScoreResult }> => {
+    return api.get(`/score/look-up/${registrationNumber}`);
   },
   
   getStatistics: (): Promise<{ success: boolean; data: SubjectStat[] }> => {
